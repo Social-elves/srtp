@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>微博热搜榜</title>
+</head>
+<body>
+    <h1>微博热搜榜</h1>
+    <ul>
+        {% for search in hot_searches %}
+            <li>
+                <a href="{{ search.link }}" target="_blank">{{ search.keyword }}</a>
+                <p>发布时间: {{ search.created_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
