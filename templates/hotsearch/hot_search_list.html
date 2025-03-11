@@ -1,17 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>微博热搜榜</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%; /* 设置容器宽度为80%，你可以根据需要调整 */
+            max-height: 400px; /* 设置容器的最大高度 */
+            overflow-y: auto; /* 启用垂直滚动条 */
+            margin: 0 auto; /* 让容器水平居中 */
+            border: 1px solid #ddd; /* 给容器加一个边框 */
+            padding: 10px; /* 给容器内部加一些填充 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 给容器加一个轻微的阴影 */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>微博热搜榜</h1>
-    <ul>
-        {% for search in hot_searches %}
-            <li>
-                <a href="{{ search.link }}" target="_blank">{{ search.keyword }}</a>
-                <p>发布时间: {{ search.created_at }}</p>
-            </li>
-        {% endfor %}
-    </ul>
+    <h1 style="text-align: center;">微博热搜榜</h1>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>排名</th>
+                    <th>热搜关键词</th>
+                    <th>链接</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hot_search in hot_searches %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ hot_search.keyword }}</td>
+                    <td>
+                        {% if hot_search.link %}
+                        <a href="{{ hot_search.link }}" target="_blank">查看详情</a>
+                        {% else %}
+                        无链接
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">暂无热搜数据。</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
